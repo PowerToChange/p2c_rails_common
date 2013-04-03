@@ -631,6 +631,8 @@ module Common
 
           @errors = []
 
+          @errors = []
+
           # PAT rows that can have viewer_id updated
           @errors += capture_errors { self.connection.execute("UPDATE #{pat_db}.eventgroup_coordinators SET viewer_id = #{self.user.id} WHERE viewer_id = #{other.user.id}") }
           @errors += capture_errors { self.connection.execute("UPDATE #{pat_db}.notification_acknowledgments SET viewer_id = #{self.user.id} WHERE viewer_id = #{other.user.id}") }
