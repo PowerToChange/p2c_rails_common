@@ -627,7 +627,7 @@ module Common
           throw("Error: Person #{self.id} (self) does not have a User") unless self.user.present?
           throw("Error: Person #{other.id} (other) does not have a User") unless other.user.present?
 
-          pat_db = Rails.configuration.database_configuration["pat_#{Rails.env}"]["database"]
+          pat_db = Rails.configuration.database_configuration["pat"]["database"]
 
           @errors = []
 
@@ -650,7 +650,7 @@ module Common
 
           # Mpdtool MpdUser should be moved over only if there is not already one for self
           begin
-            mpdtool_db = Rails.configuration.database_configuration["mpdtool_#{Rails.env}"]["database"]
+            mpdtool_db = Rails.configuration.database_configuration["mpdtool"]["database"]
             mpd_user = User.connection.execute("SELECT * FROM #{mpdtool_db}.mpd_users WHERE user_id = #{self.user.id}").first
             if mpd_user
               # keep the current one and delete the other's mpd_user
@@ -687,7 +687,7 @@ module Common
           @errors += capture_errors { self.connection.execute("UPDATE #{::Recruitment.table_name} SET recruiter_id = #{self.id} WHERE recruiter_id = #{other.id}") }
 
           # Delete Other's intranet tables (including deleting other itself)
-          intranet_db = Rails.configuration.database_configuration["intranet_#{Rails.env}"]["database"]
+          intranet_db = Rails.configuration.database_configuration["pulse"]["database"]
           other.emerg.try(:destroy) # cim_hrdb_emerg
           other.user.try(:destroy) # accountadmin_viewer
           other.access.try(:destroy) # cim_hrdb_access
