@@ -86,7 +86,7 @@ module Common
           has_one :profile_picture, :class_name => "ProfilePicture", :foreign_key => _("person_id", :profile_picture)
 
           has_many :person_event_attendees
-          has_many :event_attendees, :through => :person_event_attendees, :order => "#{::EventAttendee._(:updated_at)} desc"
+          has_many :event_attendees, :through => :person_event_attendees, :order => "updated_at desc"
 
           before_save :update_stamp
           before_create :create_stamp
