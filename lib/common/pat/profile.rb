@@ -1,4 +1,4 @@
-module Common::Pat::Profile
+module ::Common::Pat::Profile
   def self.included(base)
     base.class_eval do
       belongs_to :project
